@@ -21,7 +21,7 @@ def convert_aac_to_flac(audio_file):
         subprocess.run(command, check=True)
 
     except Exception as e:
-        return JsonResponse({'error': 'Failed to convert audio file'}, status=500)
+        return None
 
     finally:
         os.remove(aac_file_path)  # 변환 후 임시 AAC 파일 삭제
@@ -34,6 +34,9 @@ def speech_to_text(request):
         audio_file = request.FILES['audio']  # HTML form을 통해 업로드된 오디오 파일
         
         flac_file_path = convert_aac_to_flac(audio_file) # AAC 파일을 FLAC 파일로 변환
+
+        if flac_file_path is None:
+            return JsonResponse({'error': 'Invalid audio file'}, status=400)
 
         # Google Cloud Speech-to-Text 클라이언트 초기화
         client = speech.SpeechClient()
@@ -55,7 +58,7 @@ def speech_to_text(request):
 
         # 결과 처리
         for result in response.results:
-            print('Transcript: {}'.format(result.alternatives[0].transcript))
-            return JsonResponse({'transcript': result.alternatives[0].transcript})
+            print('text: {}'.format(result.alternatives[0].transcript))
+            return JsonResponse({'text': result.alternatives[0].transcript})
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
