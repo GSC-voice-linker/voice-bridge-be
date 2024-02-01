@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from google.cloud import speech
+from pydub.utils import mediainfo
 import io, os
 import tempfile
 import subprocess
@@ -28,13 +29,18 @@ def convert_aac_to_flac(audio_file):
         
     return flac_file_path
 
+def get_channel_count(audio_file_path):
+    info = mediainfo(audio_file_path)
+    return int(info['channels'])
+
 @csrf_exempt
 def speech_to_text(request):
     if request.method == 'POST':
         audio_file = request.FILES['audio']  # HTML form을 통해 업로드된 오디오 파일
         
         flac_file_path = convert_aac_to_flac(audio_file) # AAC 파일을 FLAC 파일로 변환
-
+        channel_count = get_channel_count(flac_file_path) # 채널 수 확인    
+        
         if flac_file_path is None:
             return JsonResponse({'error': 'Invalid audio file'}, status=400)
 
@@ -51,7 +57,7 @@ def speech_to_text(request):
         config = speech.RecognitionConfig(
             encoding=speech.RecognitionConfig.AudioEncoding.FLAC,
             language_code='ko-KR',  # 원하는 언어 코드 설정
-            audio_channel_count=2,  # Set this to 2 for stereo files
+            audio_channel_count=channel_count,  # Set this to 2 for stereo files
             enable_separate_recognition_per_channel=True  # Set to True if you want separate recognition for each channel
         )
 
