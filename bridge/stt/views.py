@@ -50,7 +50,9 @@ def speech_to_text(request):
         # 인식 설정을 정의합니다.
         config = speech.RecognitionConfig(
             encoding=speech.RecognitionConfig.AudioEncoding.FLAC,
-            language_code='ko-KR'  # 원하는 언어 코드 설정
+            language_code='ko-KR',  # 원하는 언어 코드 설정
+            audio_channel_count=2,  # Set this to 2 for stereo files
+            enable_separate_recognition_per_channel=True  # Set to True if you want separate recognition for each channel
         )
 
         # Speech-to-Text API 호출
