@@ -19,7 +19,7 @@ import vertexai
 from vertexai.language_models import TextGenerationModel
 
 log_dir = os.path.join(os.getcwd(),'Logs')
-actions = np.array(['Normal', 'Hi', 'Meet','Nice','Age','How','Ten','Feeling','Good','Next'])    # 가변
+actions = np.array(['Normal', 'Hi', 'Meet', 'Nice', 'Age', 'How', 'Ten', 'Feeling', 'Good', 'Next', 'Friday', 'Meeting', 'Attendance', 'Possible', 'Q_mark', 'New', 'Plan', 'Idea'])    # 가변
 
 mp_holistic = mp.solutions.holistic
 mp_drawing = mp.solutions.drawing_utils
@@ -138,7 +138,15 @@ def translate_sign_lauguage(video_path):
         'Ten': '10',
         'Feeling': '느낌',
         'Good': '좋다',
-        'Next': '다음'
+        'Next': '다음',
+        'Friday': '금요일',
+        'Meeting': '회의',
+        'Attendance': '참석',
+        'Possible': '가능',
+        'Q_mark': '의문',
+        'New': '새로운',
+        'Plan': '계획',
+        'Idea': '아이디어'
     }
 
     # Output 리스트의 단어들을 한글 단어로 변환
