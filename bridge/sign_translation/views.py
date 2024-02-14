@@ -19,16 +19,17 @@ import vertexai
 from vertexai.language_models import TextGenerationModel
 
 log_dir = os.path.join(os.getcwd(),'Logs')
-actions = np.array(['Normal', 'Hi', 'Meet', 'Nice', 'Age', 'How', 'Ten', 'Feeling', 'Good', 'Next', 'Friday', 'Meeting', 'Attendance', 'Possible', 'Q_mark', 'New', 'Plan', 'Idea'])    # 가변
+actions = np.array(['Age', 'Attendance', 'Feeling','Friday','Good','Hi','How','Idea','Meet','Meeting','New','Nice','Normal','Plan','Possible','Q_mark','Ten'])    # ModelFinal(여기)
 
 mp_holistic = mp.solutions.holistic
 mp_drawing = mp.solutions.drawing_utils
 
-model = load_model('./sign_translation/Model2.h5')
+model = load_model('./sign_translation/Modeltmp2.h5')
 
 colors = [(245,117,16), (117,245,16), (16,117,245),(200,103,27),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245)]
 
-threshold = 0.8
+tmp = [] #(여기)
+threshold = 0.6 #(여기)
 
 project_id = "voice-bridge-412704"
 location = "asia-northeast3"
@@ -95,13 +96,19 @@ def translate_sign_lauguage(video_path):
                 res = model.predict(np.expand_dims(sequence, axis=0))[0]
                 predictions.append(np.argmax(res))
 
-                if np.unique(predictions[-15:])[0] == np.argmax(res): 
-                    if res[np.argmax(res)] > threshold: 
-                        if len(sentence) > 0: 
-                            if actions[np.argmax(res)] != sentence[-1]:
-                                sentence.append(actions[np.argmax(res)])
-                        else:
-                            sentence.append(actions[np.argmax(res)])
+                if np.unique(predictions[-10:])[0]==np.argmax(res): 
+                if res[np.argmax(res)] > threshold: 
+                    
+                    if len(sentence) > 0: 
+                        tmp.append(actions[np.argmax(res)])
+                        if len(np.unique(tmp[-3:])) == 1:
+                            if actions[np.argmax(res)] == np.unique(tmp[-3:]):
+                                if actions[np.argmax(res)] != sentence[-1]:
+                                    sentence.append(actions[np.argmax(res)])
+                                    tmp = []
+                        # print("tmp                            : ",tmp[-3:])
+                    else:
+                        sentence.append(actions[np.argmax(res)])
 
                 if len(sentence) > 5: 
                     sentence = sentence[-1:]
