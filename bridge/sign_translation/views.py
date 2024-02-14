@@ -97,18 +97,18 @@ def translate_sign_lauguage(video_path):
                 predictions.append(np.argmax(res))
 
                 if np.unique(predictions[-10:])[0]==np.argmax(res): 
-                if res[np.argmax(res)] > threshold: 
-                    
-                    if len(sentence) > 0: 
-                        tmp.append(actions[np.argmax(res)])
-                        if len(np.unique(tmp[-3:])) == 1:
-                            if actions[np.argmax(res)] == np.unique(tmp[-3:]):
-                                if actions[np.argmax(res)] != sentence[-1]:
-                                    sentence.append(actions[np.argmax(res)])
-                                    tmp = []
-                        # print("tmp                            : ",tmp[-3:])
-                    else:
-                        sentence.append(actions[np.argmax(res)])
+                    if res[np.argmax(res)] > threshold: 
+                        
+                        if len(sentence) > 0: 
+                            tmp.append(actions[np.argmax(res)])
+                            if len(np.unique(tmp[-3:])) == 1:
+                                if actions[np.argmax(res)] == np.unique(tmp[-3:]):
+                                    if actions[np.argmax(res)] != sentence[-1]:
+                                        sentence.append(actions[np.argmax(res)])
+                                        tmp = []
+                            # print("tmp                            : ",tmp[-3:])
+                        else:
+                            sentence.append(actions[np.argmax(res)])
 
                 if len(sentence) > 5: 
                     sentence = sentence[-1:]
