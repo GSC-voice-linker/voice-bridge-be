@@ -132,7 +132,7 @@ def translate_sign_lauguage(video_path):
     word_map = {
         'Hi': '안녕',
         'Meet': '만나다',
-        'Nice': '좋다',
+        'Nice': '반갑다',
         'Age': '나이',
         'How': '어떻게',
         'Ten': '10',
@@ -175,7 +175,7 @@ def mk_sentence(
 
     model = TextGenerationModel.from_pretrained("text-bison@001")
     # Combine the fixed prompt with the words list
-    prompt = "다음의 단어들을 순서대로 이용해서해서 자연스러운 대화형 문장 하나로 만들어줘. 대화형이라고 해서 상대의 대답까지 만들어달라는건 아니야. 예를 들어 주어진 단어가(나 오늘 금요일 기분 좋다)라면 (나는 오늘이 금요일이라 기분이 좋아)라고 자연스럽게 만들어줘. 이때 물음표가 제시되는 경우 의문문으로 만들어줘. " + ",".join(words)
+    prompt = "다음의 단어들을 순서대로 이용해서해서 자연스러운 문장 하나로 만들어줘. 예를 들어 주어진 단어가(나 오늘 금요일 기분 좋다)라면 (나는 오늘이 금요일이라 기분이 좋아)라고 자연스럽게 만들어줘. 이때 물음표가 제시되는 경우 의문문으로 만들어줘. " + ",".join(words)
     response = model.predict(
         prompt,
         **parameters,
