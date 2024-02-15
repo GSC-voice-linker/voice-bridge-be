@@ -174,8 +174,8 @@ def mk_sentence(
     parameters = {
         "temperature": temperature,  # Temperature controls the degree of randomness in token selection.
         "max_output_tokens": 1024,  # Token limit determines the maximum amount of text output.
-        "top_p": 1,  # Tokens are selected from most probable to least until the sum of their probabilities equals the top_p value.
-        "top_k": 0,  # A top_k of 1 means the selected token is the most probable among all tokens.
+        "top_p": 0.9,  # Tokens are selected from most probable to least until the sum of their probabilities equals the top_p value.
+        "top_k": 2,  # A top_k of 1 means the selected token is the most probable among all tokens.
     }
     # 평탄화 과정 - 중첩 리스트를 단일 리스트로 변환
     # flat_list = [item for sublist in words for item in sublist] if words and isinstance(words[0], list) else words
