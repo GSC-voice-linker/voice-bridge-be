@@ -157,7 +157,7 @@ def translate_sign_lauguage(video_path):
     }
 
     # Output 리스트의 단어들을 한글 단어로 변환
-    output_korean = [word_map[word] if word in word_map else word for word in output]
+    output_korean = [word_map[word] for word in output if word in word_map]
 
     return output_korean
 
