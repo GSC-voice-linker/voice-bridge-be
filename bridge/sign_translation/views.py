@@ -182,7 +182,7 @@ def mk_sentence(
 
     model = TextGenerationModel.from_pretrained("text-bison")
     # Combine the fixed prompt with the words list
-    prompt = "다음의 단어들을 순서대로 이용해서해서 자연스러운 문장 하나로 만들어줘. 예를 들어 주어진 단어가(나 오늘 금요일 기분 좋다)라면 (나는 오늘이 금요일이라 기분이 좋아)라고 자연스럽게 만들어줘. 이때 물음표가 제시되는 경우 의문문으로 만들어줘. " + ",".join(words)
+    prompt = "다음의 단어들을 순서대로 이용해서해서 자연스러운 문장 하나로 만들어줘. 기본적으로 존댓말을 사용해줘. 예를 들어 주어진 단어가(나 오늘 금요일 기분 좋다)라면 (저는 오늘이 금요일이라 기분이 좋습니다)라고 자연스럽게 만들어줘. 이때 물음표가 제시되는 경우 의문문으로 만들어줘. " + ",".join(words)
     response = model.predict(
         prompt,
         **parameters,
