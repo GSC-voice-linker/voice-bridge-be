@@ -24,7 +24,7 @@ actions = np.array(['Age', 'Attendance', 'Feeling','Friday','Good','Hi','How','I
 mp_holistic = mp.solutions.holistic
 mp_drawing = mp.solutions.drawing_utils
 
-model = load_model('./sign_translation/model/Modeltmp2.h5')
+model = load_model('./sign_translation/model/Modeltmp4.h5')
 
 colors = [(245,117,16), (117,245,16), (16,117,245),(200,103,27),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245)]
 
