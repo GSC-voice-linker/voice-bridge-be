@@ -24,7 +24,7 @@ actions = np.array(['Age', 'Attendance', 'Feeling','Friday','Good','Hi','How','I
 mp_holistic = mp.solutions.holistic
 mp_drawing = mp.solutions.drawing_utils
 
-model = load_model('./sign_translation/model/Modeltmp4.h5')
+model = load_model('./sign_translation/model/Modeltmp5.h5')
 
 colors = [(245,117,16), (117,245,16), (16,117,245),(200,103,27),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245)]
 
@@ -107,19 +107,21 @@ def translate_sign_lauguage(video_path):
                             if len(np.unique(tmp[-3:])) == 1:
                                 if actions[np.argmax(res)] == np.unique(tmp[-3:]):
                                     if actions[np.argmax(res)] != sentence[-1]:
+                                        # if actions[np.argmax(res)] != "Normal":
                                         sentence.append(actions[np.argmax(res)])
                                         tmp = []
                         else:                                                               
                             sentence.append(actions[np.argmax(res)])
 
-                if len(sentence) > 5: 
-                    sentence = sentence[-1:]
+                # if len(sentence) > 5: 
+                #     sentence = sentence[-1:]
 
-            if output == [] and sentence != "normal":
-                output.append(sentence)
-            elif output != [] and sentence != "normal":
-                if output[-1] != sentence:
-                    output.append(sentence)
+            # if output == [] and sentence != "Normal":
+            #     output.append(sentence)
+            # elif output != [] and sentence != "Normal":
+            #     if output[-1] != sentence:
+            #         output.append(sentence)
+            output = sentence
 
             cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
             cv2.putText(image, ' '.join(sentence), (3,30), 
@@ -127,12 +129,13 @@ def translate_sign_lauguage(video_path):
 
             # cv2.imshow('OpenCV Feed', image)
 
-            if cv2.waitKey(10) & 0xFF == ord('q'):
+            if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
         cap.release()
         cv2.destroyAllWindows()
-        
+    print("Before: ",output)
+    print("After: ",output)
     output = [item for sublist in output for item in sublist]
 
     # 영어 단어를 한글 단어로 매핑하는 사전
@@ -207,8 +210,9 @@ def sign_translation(request):
     try:
         if request.method == 'POST':
             video_path = get_video_path(request.FILES['video'])
+            print("비디오 경로 : " + video_path)
             output = translate_sign_lauguage(video_path) # 비디오 번역
-            delete_video_file(video_path) # 파일 삭제
+            # delete_video_file(video_path) # 파일 삭제
             result = mk_sentence(temperature, project_id, location, output) # 번역된 단어를 문장으로 번역
             print(output)
             return JsonResponse({'text': result})
