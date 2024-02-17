@@ -107,8 +107,8 @@ def translate_sign_lauguage(video_path):
                             if len(np.unique(tmp[-3:])) == 1:
                                 if actions[np.argmax(res)] == np.unique(tmp[-3:]):
                                     if actions[np.argmax(res)] != sentence[-1]:
-                                        # if actions[np.argmax(res)] != "Normal":
-                                        sentence.append(actions[np.argmax(res)])
+                                        if actions[np.argmax(res)] != "Normal":
+                                            sentence.append(actions[np.argmax(res)])
                                         tmp = []
                         else:                                                               
                             sentence.append(actions[np.argmax(res)])
