@@ -155,7 +155,7 @@ def translate_sign_lauguage(video_path):
         'Possible': '가능',
         'Q_mark': '의문',
         'New': '새로운',
-        'Plan': '계획',
+        'Plan': '기획',
         'Idea': '아이디어'
     }
 
