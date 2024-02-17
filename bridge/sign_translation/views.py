@@ -116,12 +116,12 @@ def translate_sign_lauguage(video_path):
                 # if len(sentence) > 5: 
                 #     sentence = sentence[-1:]
 
-            # if output == [] and sentence != "Normal":
-            #     output.append(sentence)
-            # elif output != [] and sentence != "Normal":
-            #     if output[-1] != sentence:
-            #         output.append(sentence)
-            output = sentence
+            if output == [] and sentence != "Normal":
+                output.append(sentence)
+            elif output != [] and sentence != "Normal":
+                if output[-1] != sentence:
+                    output.append(sentence)
+
 
             cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
             cv2.putText(image, ' '.join(sentence), (3,30), 
