@@ -212,7 +212,7 @@ def sign_translation(request):
             video_path = get_video_path(request.FILES['video'])
             print("비디오 경로 : " + video_path)
             output = translate_sign_lauguage(video_path) # 비디오 번역
-            # delete_video_file(video_path) # 파일 삭제
+            delete_video_file(video_path) # 파일 삭제
             result = mk_sentence(temperature, project_id, location, output) # 번역된 단어를 문장으로 번역
             print(output)
             print(result)
