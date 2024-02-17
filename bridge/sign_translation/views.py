@@ -215,6 +215,7 @@ def sign_translation(request):
             # delete_video_file(video_path) # 파일 삭제
             result = mk_sentence(temperature, project_id, location, output) # 번역된 단어를 문장으로 번역
             print(output)
+            print(result)
             return JsonResponse({'text': result})
         
     except Exception as e:
