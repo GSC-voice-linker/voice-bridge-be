@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 import cv2, os
 import numpy as np
@@ -28,8 +29,8 @@ model = load_model('./sign_translation/model/Modeltmp5.h5')
 
 colors = [(245,117,16), (117,245,16), (16,117,245),(200,103,27),(245,117,16), (117,245,16), (16,117,245),(245,117,16), (117,245,16), (16,117,245)]
 
-project_id = "voice-bridge-412704"
-location = "asia-northeast3"
+project_id = settings.GCP_PROJECT_ID
+location = settings.GCP_LOCATION
 temperature = 0.9
 
 def multiple_detection(image,model):
