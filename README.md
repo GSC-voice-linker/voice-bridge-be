@@ -1,5 +1,5 @@
 
-# Voice Bridge
+# Voice Bridge BE
 
 ## Overview
 Voice Bridge is a transformative communication platform designed to facilitate seamless interaction for the deaf and hard-of-hearing community. This project leverages advanced technology to provide bidirectional communication translation, enabling users to convert speech to text and sign language videos to natural language text.
