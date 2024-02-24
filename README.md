@@ -25,7 +25,7 @@ To start the Django development server, run the following command inside the pro
 ```bash
 python manage.py runserver
 ```
-This will start the server on the default port (usually 8000), accessible via `http://localhost:8000`.
+This will start the server on the default port (usually 8000), accessible via `http://localhost:8000`
 
 ## Usage
 - **For Speech-to-Text**: Send a POST request to `/stt/` with the voice input to receive the textual translation.
